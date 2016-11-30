@@ -1,5 +1,5 @@
-OpenRefine
-openrefine介绍
+OpenRefine-基础与使用
+#openrefine介绍
 目的：用于数据清理，特别是非业务数据库来源的数据。
 <http://blog.csdn.net/chszs/article/details/20046083>
 数据剖析Data Profiling：也叫做数据考古（Data Archeology），是数据集（Data Set）内部为达一致性、单值性和逻辑性而进行的数值质量的统计分析及评估。数据剖析是Olson于2003年提出的概念，使用分析技术来发现正确的、结构化的、有内容、有质量的数据。换句话说，它是评估你的数据和信息的当前状态以及包含了多少错误的方法。
@@ -9,3 +9,6 @@ openrefine介绍
 IDTs：Interactive Data Transformation tools，交互数据转换工具，它可以对大数据进行快速、廉价的操作，使用单个的集成接口。
 
 OpenRefine就是这样的IDT工具，可以观察和操纵数据的工具。它类似于传统Excel的表格处理软件，但是工作方式更像是数据库，以列和字段的方式工作，而不是以单元格的方式工作。这意味着OpenRefine不仅适合对新的行数据进行编码，而且功能还极为强大。
+
+#openrefine使用：
+
