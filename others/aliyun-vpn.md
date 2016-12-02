@@ -6,9 +6,7 @@
 <http://www.123haitao.com/question/67945?notification_id-263877__rf-false__comment-2__item_id-94748__answer_id-94748__single-TRUE>  
 
 本文实例中选的是配置是:  
-![peizhi-1][peizhi-1]
-
-[peizhi-1]:/Users/canhuamei/Desktop/Screen Shot 2016-11-21 at 9.31.02 PM.png
+![peizhi-1](Screen Shot 2016-11-21 at 9.31.02 PM.png)
 
 ##安装VPN，设置防火墙
 检查是是否能装pptp

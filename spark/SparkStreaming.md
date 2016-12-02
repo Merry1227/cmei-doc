@@ -1,6 +1,6 @@
 #Basic Concepts
 * Batch Duration: The time interval at which streaming data will be divided into batches* Window:  - window length - The duration of the window (3 in the figure, 3 batch interval). - sliding interval - The interval at which the window operation is performed (2 in the figure, 2 batch invetval ).
- ![spark-streaming](/Users/canhuamei/Desktop/screamshot/sparkstreaming1.png)#RDD Lifecycle in Spark Streaming##In Batch Duration  
+ ![spark-streaming](sparkstreaming1.png)#RDD Lifecycle in Spark Streaming##In Batch Duration  
 * Basically, spark jobs is triggered by timer in spark streaming, and all rdds of  DStream in a batch duration will be cleaned from memory after spark job(action) finish. 
 * If we persist one of DSStream in a job (calling DStream.persist), it will be persisted as shown  on Storage on Spark UI, but will be removed later after job is finished automatically.Yon can see from log: BlockManager: Removing RDD xxx
 *	There is one workaround to ask spark streaming to hold all rdds generated from different batches by calling ssc.remember. 
@@ -11,8 +11,7 @@ And on Spark UI, all rdds generated from different batched in the 24h will be sh
 
 * The rdds generated in successive two windows will be continuously stored in memory or files. 
 
-![spark-streaming-3](/Users/canhuamei/Desktop/screamshot/sparkstreaming3.png
-)#Possible ways to control rdd's lifecycle  
+![spark-streaming-3](sparkstreaming3.png)#Possible ways to control rdd's lifecycle  
 Possible ways to control rdd's lifecycle  
  *	Window Operations   rdds in previous batch can be obtained by current batch? Can we build the relations between previous batch and current batch, then union them and generated new DStream ?  http://stackoverflow.com/questions/30048684/spark-streaming-data-sharing-between-batches
 	- Conclusion after research:** 
