@@ -23,7 +23,7 @@
 非常详细的解释：参考:<https://www.zhihu.com/question/28641663/answer/41653367>  
 这张图比较好：  
   
-![spark-ETS](/Users/canhuamei/Desktop/screamshot/20e4522e6104ad71fc543cc21f402b36_b.png)
+![spark-ETS](20e4522e6104ad71fc543cc21f402b36_b.png)
 
 特征选择与降维：  
 从处理方式来说，特征选择对原特征要么留，要么舍；而降维会利用到原特征的部分信息。
