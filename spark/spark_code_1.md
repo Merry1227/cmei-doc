@@ -166,8 +166,15 @@ Worker 作为主进程，管理了多个 executor 的信息和启动
 #CheckPoint
 
 #Shuffle
+Spark shuffle 是 pluggalbe的，核心接口在 ShuffleManager,可在配置文件中配置，具体在 SparkEnv 里面读取配置。
 <https://0x0fff.com/spark-architecture-shuffle/>
-##sortShuffle:TimSort
+<http://www.cnblogs.com/zlslch/p/5942590.html>
+* Hash-Based Shuffle：M*R个临时文件，每个 map task 一个。
+  consalidate：C*R个，每个 core 产生一个大的合并文件。
+
+* Sort-Based Shuffle：2*M 个。每个 map task产生两个，一个是 data 本身，另一个是 data index，存在 map端。reducer 端根据 index 获取自己的数据。
+
+* Tungsten-sort Shuffle：
 
 #RPC 层
 ThreadSafeRpcEndpoint
