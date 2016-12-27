@@ -42,6 +42,10 @@ spark.yarn.jar= (版本问题）
 
 13. 16/09/14 11:38:47 ERROR controller.LightningServer: Permission denied: user=canhuamei, access=WRITE, inode="/":hadoop:supergroup:drwxr-xr-x
 
+14. ERROR Executor: Exception in task 0.0 in stage 6.0 (TID 5)
+com.esotericsoftware.kryo.KryoException: Encountered unregistered class ID: 13994
+	at com.esotericsoftware.kryo.util.DefaultClassResolver.readClass(DefaultCla
+streaming做了 checkpoint，application 代码发生了变化。需要删除 checkpoint 文件。
 
 
 

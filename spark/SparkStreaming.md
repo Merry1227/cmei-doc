@@ -1,3 +1,10 @@
+#Spark Streaming
+Spark Streaming is an extension of the core Spark API that enables scalable, high-throughput, fault-tolerant stream processing of live data streams。  
+
+* 输入可以是 kafka，flume,kinesis,tcp sockets等。
+* 中间的处理可以是由map,reduce, join,window等组成的复杂算法，也可以是machine learning 和图处理算法。
+* 输出可以是文件系统，数据库，live dashboards.
+
 #Basic Concepts
 * Batch Duration: The time interval at which streaming data will be divided into batches* Window:  - window length - The duration of the window (3 in the figure, 3 batch interval). - sliding interval - The interval at which the window operation is performed (2 in the figure, 2 batch invetval ).
  ![spark-streaming](sparkstreaming1.png)#RDD Lifecycle in Spark Streaming##In Batch Duration  
