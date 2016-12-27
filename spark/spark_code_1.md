@@ -204,6 +204,17 @@ DStream 操作 - DStream 一些列的操作
 注意：类 Checkpoint 对象序列化后的数据，在 Spark Streaming application **重新编译**后，再去反序列化 checkpoint 数据就会失败。这个时候就必须新建 StreamingContext。解决方案：对于重要的数据，自行维护，比如 kafka 的offset。  
 TODO check: offset checkpoint metadata or hdfs 存 or
  zookeeper存 比较。
+ 
+ 
+### zero data loss 保证
+Write Ahead Log+ reliable receivers（收到数据并且 replicate 之后向 source 确认）
+多大程度上保证 zero data loss，跟源本身的实现机制，receiver 的实现也有关系
+![streaming-failure](streaming-failure.png)
+
+### 在 deploy 上 checkpoint 也有一些依赖
+具体参考：
+<http://spark.apache.org/docs/latest/streaming-programming-guide.html#deploying-applications>
+ 
 
 # Persistent vs CheckPoint
 Spark 在生产环境下经常会面临transformation的RDD非常多（例如一个Job中包含1万个RDD）或者具体transformation的RDD本身计算特别复杂或者耗时（例如计算时长超过1个小时），这个时候就要考虑对计算结果数据的持久化。如果采用persist把数据放在内存中，虽然是快速的，但是也是最不可靠的；如果把数据放在磁盘上，也不是完全可靠的！例如磁盘会损坏，系统管理员可能清空磁盘。持久化的方向可以是 persistent 或者 checkpoint。 当两者目的又有所不同。
@@ -220,8 +231,6 @@ Spark 在生产环境下经常会面临transformation的RDD非常多（例如一
 理解spark streaming 情形下的数据丢失，对 checkpoint 非常重要
 <http://spark.apache.org/docs/latest/streaming-programming-guide.html#fault-tolerance-semantics>
 
-### zero data loss 保证
-Write Ahead Log+ reliable receivers（收到数据之后
 
 #Shuffle
 Spark shuffle 是 pluggalbe的，核心接口在 ShuffleManager,可在配置文件中配置，具体在 SparkEnv 里面读取配置。
