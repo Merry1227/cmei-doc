@@ -2,8 +2,8 @@
 Andrew Ng的课程真是通俗易懂，读了几年的数据挖掘，很多东西还是一直半解。五年之后上了coursera温习下，发现很多基本东西都通了。
 <https://www.coursera.org/learn/machine-learning/lecture/8SpIM/gradient-descent>
 
-#基础
-1.假设函数：
+#基础  
+1. 假设函数：
 hypothesis h(x): 是特征变量 x 与标签 y 之间的函数，x 是自变量， 参数是固定的。我们的目标就是求这个参数。  
 2. cost function: J 自变量是假设函数的参数，即表示的参数的变化如何影响最终的值得。这个值越小，则意味着该参数所形成的最终h(x）在训练集上的总的差距最小。  
 3. 梯度下降 Gradient Descent：是求 cost function 最小值的一种方式。在同一个圈上的点，所得的 cost function值相同。    
@@ -23,6 +23,12 @@ hypothesis h(x): 是特征变量 x 与标签 y 之间的函数，x 是自变量�
 ![learning-rate1](learning-rate2.png)
 * learning rate 为固定值既可以保证会朝着收敛的方向**慢慢**逼近，无需每次再修改调整。'
 ![learning-rate3](learning-rate3.png)
+  
+  
+4. 矩阵与向量 Matrice and Vector
+* 向量是 n*1 维矩阵，只有一列
+* A*y：可以看成线程函数中数据集与参数，相成正好表示了线程函数（A 是矩阵，y 是向量）
+* A*B： B 则是 m 个向量，也就表示不同参数下的不同输出组成的矩阵。
 
 
 

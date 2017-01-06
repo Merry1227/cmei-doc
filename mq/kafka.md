@@ -1,4 +1,5 @@
 #Kafka
+kafka 文档非常详细，很值得深读细度多读。先预读一遍，记下笔记。
 #基本概念
 kafka 集群保存了所有的published records，无论该记录是否被消费。记录被清除由配置的 retention period 决定。  
 
