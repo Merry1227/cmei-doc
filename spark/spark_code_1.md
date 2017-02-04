@@ -213,9 +213,9 @@ ReliableRDDCheckpointData
 
 
 #Shuffle
-Spark shuffle 是 pluggalbe的，核心接口在 ShuffleManager,可在配置文件中配置，具体在 SparkEnv 里面读取配置。
-<https://0x0fff.com/spark-architecture-shuffle/>
-<http://www.cnblogs.com/zlslch/p/5942590.html>
+Spark shuffle 是 pluggalbe的，核心接口在 ShuffleManager,可在配置文件中配置，具体在 SparkEnv 里面读取配置。  
+<https://0x0fff.com/spark-architecture-shuffle/>  
+<http://www.cnblogs.com/zlslch/p/5942590.html>  
 * Hash-Based Shuffle：M*R个临时文件，每个 map task 一个。
   consalidate：C*R个，每个 core 产生一个大的合并文件。
 

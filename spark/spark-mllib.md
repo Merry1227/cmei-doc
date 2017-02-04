@@ -17,6 +17,7 @@
 
 
 **Extracting,transfroming and selecting features**  
+<http://spark.apache.org/docs/latest/ml-features.html>
  
 * Extraction: Extracting features from “raw” data  
 * Transformation: Scaling, converting, or modifying features  
@@ -31,7 +32,16 @@
 
 特征选择与降维：  
 从处理方式来说，特征选择对原特征要么留，要么舍；而降维会利用到原特征的部分信息。
-从目的角度来说，特征选择是选取“有用”的特征，而降维是在性能和效率之间做一个折衷。
+从目的角度来说，特征选择是选取“有用”的特征，而降维是在性能和效率之间做一个折衷。  
+
+###特征抽取
+####文本挖掘:TF-IDF
+TF(t,d): Term Frequency,词频,t在文档 d 中出现的**次数**。
+DF(t,D): Document Frequency,包含 词t 的**文档数**。
+如果仅用TF表示表示词的重要性的话，则很容易过分强调某些出现频繁但是实际上携带信息很少的词。如 a，the 等。如果一个词多个文档总出现频繁，则意味着它并不携带某个特定文档的特别的信息。
+IDF:Inverse document frequency,衡量一个词能提供多少信息
+   IDF(t,D)=log (|D|+1)/DF(t,D)+1,  
+* +1:为了平滑，避免某个词不存在，导致 DF 为0，除以0的情况出现。
 #分类
 #回归
 **线性回归和逻辑回归**
