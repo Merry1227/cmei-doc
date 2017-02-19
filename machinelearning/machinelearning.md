@@ -1,5 +1,5 @@
 #Machine Learning Ng课程学习笔记
-Andrew Ng的课程真是通俗易懂，读了几年的数据挖掘，很多东西还是一直半解。五年之后上了coursera温习下，发现很多基本东西都通了。
+Andrew Ng的课程真是通俗易懂，读了几年的数据挖掘，很多东西还是一知半解。五年之后上了coursera温习下，发现很多基本东西都通了。
 <https://www.coursera.org/learn/machine-learning/lecture/8SpIM/gradient-descent>
 
 #线性回归Linear Regression  
@@ -45,11 +45,27 @@ hypothesis h(x): 是特征变量 x 与标签 y 之间的函数，x 是自变量�
 
 #逻辑回归Logistic Regression
 Note：
-1）线性回归用于预测连续值。分类问题则是
+1）线性回归用于预测连续值。分类问题是类似线性回归，但其 y 值为有限的离散值。
 2）逻辑回归则用于分类。因为分类问题可能不是一个线性函数。
+
+##Overfitting/Uderfitting
+* Underfitting, or high bias, is when the form of our hypothesis function h maps poorly to the trend of the data. It is usually caused by a function that is too simple or uses too few features.  
+* overfitting, or high variance, is caused by a hypothesis function that fits the available data but does not generalize well to predict new data. It is usually caused by a complicated function that creates a lot of unnecessary curves and angles unrelated to the data.
+
+###How to addressing overfitting
+1. 减少特征
+1）Manually select which features to keep.
+2） Use a model selection algorithm (studied later in the course).
+
+2. Regularization
+1） Keep all the features, but reduce the magnitude of parameters θj.
+2）Regularization works well when we have a lot of slightly useful features.
+
 
 
 #神经网络Neural Network
+##为啥需要神经网络
+
 
 #支持向量机 Support Vector Machines
 
