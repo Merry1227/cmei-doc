@@ -1,35 +1,1 @@
-#开源 hadoop 安装
-##参考教材
-Hadoop安装教程有很多，因此不再赘述，下面给出一些比较好的参考：
-
-<http://www.cnblogs.com/xia520pi/archive/2012/05/16/2503949.html>
-##Prerequisite###SSH**root 账号下做一下修改**  
- 	1. 修改hostnamevi /etc/sysconfig/networkservice network restart2.	修改IP （可选） NAT需要在 /etc/sysconfig/network-script下面找到对应的网卡配置文件 /ifcfg-xxx然后修改一下项•	BOOTPROTO= “static” //原来是dpcp，设成静态ip•	IPADDR  //ip•	GATEWAY //网关如果是虚拟机 网关是192.168.x.2  (vm， 192.168.x.1)•	DNS1 //dns服务器，与网关同，决定了能否解析 www.baidu.com使修改生效：service network restart检查ip是否修改成功：ifconfig  检查是否能正常上网：ping www.baidu.com3.	修改 etc/hosts将 master 和 slaver 的所有 ip 和 name 的映射加入注意：不要将本机hostname加入127.0.0.1 和：：1，这样将会导致  datanode 无法连接 master。查看 datanode 会发现一只报 warning：org.apache.hadoop.hdfs.server.datanode.DataNode: Problem connecting to server回头查看 master，用 netstat 查看，发现端口已开，但是在127.0.0.1上，而非master ip：192.168.84.11 :9000，导致 datanode 无法连接。4.	切换至hadoop user 账号，设置本机ssh无密码登录•	ssh-keygen –t rsa –P ‘’  //会在~/.ssh下面生成无密码密钥对 id_rsa, id_rsa.pub•	cat 	 ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys  //相当于给本机加了ssh登陆的权限•	chmod 600 ~/.ssh/authorized_keys //修改authorized_keys 权限5.	root用户修改 /etc/ssh/sshd_config, 然后重启 service sshd restart 使修改生效•	RSAAuthentication yes # 启用 RSA 认证•	PubkeyAuthentication yes # 启用公钥私钥配对认证方式•	AuthorizedKeysFile .ssh/authorized_keys # 公钥文件路径（和上面生成的文件同）6.	切回hadoop user验证 ssh localhost 是否无需密码clone 虚拟机问题：      1.hostname更改      2.mac 地址更新，修改70x 里面的Eth1-eth0，而不是删除http://www.cnblogs.com/sixiweb/archive/2013/05/31/3110734.html     3.ssh remove the whole .ssh7.	master 无密码登录所有的 slave•	在 master 上以 Hadoop 用户登录,将~/.ssh 下面 id_rsa.pub copy 发送到所有的 slavers 机器上。如:scp ~/.ssh/id_rsa.pub hadooop@lvm-slaver1:~/.ssh/id_rsa_master.pub•	将 master 的 id_rsa.pub 追加到 slavers 的 authorized_keys 里面：cat ~/.ssh/id_rsa_master.pub >> ~/.ssh/authorized_keys8.	slavers 无密码登录 master 或者其他的 slaver：步骤类似 69.	关闭 linux 防火墙•	service iptables stop (立即生效，但是重启后会重新 start)•	chconfig iptables off (重启后生效)###hadoop 配置基本参考官网即可。主要的配置文件：
-
-####注意事项：
-* hostname里面不要用下划线'_',但可以用'-'. 题主在这个上面犯过错，找了很久才找到原因。是* 正确的stop namenode和data node，意外的关机可能导致namenode和data node不能顺利重启，需要重新dfs format。
-* 如果是用虚拟机，注意网络连接方式，最简单当然是桥连。如果是小公司的话，可能 ip 不够，导致冲突配不了几个地址，导致部分虚拟机不能ping 通，又或者网管对单个主机，限制了 ip 数目等，这时候就只能 NAT 了。但是如果想主机与虚拟机互通，并且是自己电脑，不因为在办公、出差，家庭 wifi ip 改变的话，就需要配成双网卡用 NAT+Host 模式。另外注意 VirtualBox 和 vmware 的默认网关地址的区别。
-具体参考：
-<http://www.360doc.com/content/12/0819/16/1671317_231154710.shtml>
-<http://www.jb51.net/os/other/352995.html>
-
-##chd hadoop安装
-<http://www.cloudera.com/documentation/enterprise/5-7-x.html>
-<http://www.cloudera.com/documentation/enterprise/5-7-x/topics/cm_ig_install_path_b.html>
-###离线下载相关包
-下载地址：<http://archive.cloudera.com/cdh5/parcels/5.7.2/>
-###离线安装步骤
-<http://blog.csdn.net/xjkwq1qq/article/details/50394210>
-<http://blog.csdn.net/shawnhu007/article/details/52579204>
-<http://blog.csdn.net/jdplus/article/details/45920733>
-<http://www.tools138.com/create/article/20141014/183650470.html>
-##hadoop getway node:
-<http://www.cloudera.com/documentation/manager/5-0-x/Cloudera-Manager-Managing-Clusters/cm5mc_managing_roles.html#xd_583c10bfdbd326ba-3ca24a24-13d80143249--7f3c__section_scv_ywt_cn>
-
-
-##how to find the yarn application 自己的log:
-一般在 yarn.nodemanager.local-dirs 定义的目录下
-
-##tarball and packaging:
-<http://www.cloudera.com/documentation/enterprise/5-4-x/topics/cdh_vd_cdh_package_previous.html#concept_wws_5tw_yr_unique_2>
-
+#开源 hadoop 安装##参考教材Hadoop安装教程有很多，因此不再赘述，下面给出一些比较好的参考：<http://www.cnblogs.com/xia520pi/archive/2012/05/16/2503949.html>##Prerequisite###SSH**root 账号下做一下修改**   	1. 修改hostnamevi /etc/sysconfig/networkservice network restart2.	修改IP （可选） NAT需要在 /etc/sysconfig/network-script下面找到对应的网卡配置文件 /ifcfg-xxx然后修改一下项•	BOOTPROTO= “static” //原来是dpcp，设成静态ip•	IPADDR  //ip•	GATEWAY //网关如果是虚拟机 网关是192.168.x.2  (vm， 192.168.x.1)•	DNS1 //dns服务器，与网关同，决定了能否解析 www.baidu.com使修改生效：service network restart检查ip是否修改成功：ifconfig  检查是否能正常上网：ping www.baidu.com3.	修改 etc/hosts将 master 和 slaver 的所有 ip 和 name 的映射加入注意：不要将本机hostname加入127.0.0.1 和：：1，这样将会导致  datanode 无法连接 master。查看 datanode 会发现一只报 warning：org.apache.hadoop.hdfs.server.datanode.DataNode: Problem connecting to server回头查看 master，用 netstat 查看，发现端口已开，但是在127.0.0.1上，而非master ip：192.168.84.11 :9000，导致 datanode 无法连接。4.	切换至hadoop user 账号，设置本机ssh无密码登录•	ssh-keygen –t rsa –P ‘’  //会在~/.ssh下面生成无密码密钥对 id_rsa, id_rsa.pub•	cat 	 ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys  //相当于给本机加了ssh登陆的权限•	chmod 600 ~/.ssh/authorized_keys //修改authorized_keys 权限5.	root用户修改 /etc/ssh/sshd_config, 然后重启 service sshd restart 使修改生效•	RSAAuthentication yes # 启用 RSA 认证•	PubkeyAuthentication yes # 启用公钥私钥配对认证方式•	AuthorizedKeysFile .ssh/authorized_keys # 公钥文件路径（和上面生成的文件同）6.	切回hadoop user验证 ssh localhost 是否无需密码clone 虚拟机问题：      1.hostname更改      2.mac 地址更新，修改70x 里面的Eth1-eth0，而不是删除http://www.cnblogs.com/sixiweb/archive/2013/05/31/3110734.html     3.ssh remove the whole .ssh7.	master 无密码登录所有的 slave•	在 master 上以 Hadoop 用户登录,将~/.ssh 下面 id_rsa.pub copy 发送到所有的 slavers 机器上。如:scp ~/.ssh/id_rsa.pub hadooop@lvm-slaver1:~/.ssh/id_rsa_master.pub•	将 master 的 id_rsa.pub 追加到 slavers 的 authorized_keys 里面：cat ~/.ssh/id_rsa_master.pub >> ~/.ssh/authorized_keys8.	slavers 无密码登录 master 或者其他的 slaver：步骤类似 69.	关闭 linux 防火墙•	service iptables stop (立即生效，但是重启后会重新 start)•	chconfig iptables off (重启后生效)###hadoop 配置基本参考官网即可。主要的配置文件：####注意事项：* 单机mac下，connect to host 0.0.0.0 port 22: Connection refused， 原因是安全策略限制了，打开系统偏好设置->共享->远程登录* hostname里面不要用下划线'_',但可以用'-'. 题主在这个上面犯过错，找了很久才找到原因。是* 正确的stop namenode和data node，意外的关机可能导致namenode和data node不能顺利重启，需要重新dfs format。* 如果是用虚拟机，注意网络连接方式，最简单当然是桥连。如果是小公司的话，可能 ip 不够，导致冲突配不了几个地址，导致部分虚拟机不能ping 通，又或者网管对单个主机，限制了 ip 数目等，这时候就只能 NAT 了。但是如果想主机与虚拟机互通，并且是自己电脑，不因为在办公、出差，家庭 wifi ip 改变的话，就需要配成双网卡用 NAT+Host 模式。另外注意 VirtualBox 和 vmware 的默认网关地址的区别。具体参考：<http://www.360doc.com/content/12/0819/16/1671317_231154710.shtml><http://www.jb51.net/os/other/352995.html>##chd hadoop安装<http://www.cloudera.com/documentation/enterprise/5-7-x.html><http://www.cloudera.com/documentation/enterprise/5-7-x/topics/cm_ig_install_path_b.html>###离线下载相关包下载地址：<http://archive.cloudera.com/cdh5/parcels/5.7.2/>###离线安装步骤<http://blog.csdn.net/xjkwq1qq/article/details/50394210><http://blog.csdn.net/shawnhu007/article/details/52579204><http://blog.csdn.net/jdplus/article/details/45920733><http://www.tools138.com/create/article/20141014/183650470.html>##hadoop getway node:<http://www.cloudera.com/documentation/manager/5-0-x/Cloudera-Manager-Managing-Clusters/cm5mc_managing_roles.html#xd_583c10bfdbd326ba-3ca24a24-13d80143249--7f3c__section_scv_ywt_cn>##how to find the yarn application 自己的log:一般在 yarn.nodemanager.local-dirs 定义的目录下##tarball and packaging:<http://www.cloudera.com/documentation/enterprise/5-4-x/topics/cdh_vd_cdh_package_previous.html#concept_wws_5tw_yr_unique_2>
