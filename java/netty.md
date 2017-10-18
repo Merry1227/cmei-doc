@@ -7,3 +7,7 @@
 ##event -driven
 ##网络事情响应和处理
 ##编码解码
+
+
+#Netty 使用
+http://blog.csdn.net/dc_726/article/details/48978891
