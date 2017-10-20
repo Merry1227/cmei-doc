@@ -141,7 +141,32 @@ spring.could.stream.kafka.binder.zkNodes=localhost:2181
 
 ###ELK
 ELK安装：此处略过
+配置：
+1. zipkin server:
+```
+ <dependency>
+            <groupId>io.zipkin.java</groupId>
+            <artifactId>zipkin</artifactId>
+            <version>1.28.0</version>
+        </dependency>
+        <dependency>
+            <groupId>io.zipkin.java</groupId>
+            <artifactId>zipkin-autoconfigure-storage-elasticsearch-http</artifactId>
+            <version>1.28.0</version>
+        </dependency>     
+```
 
+**同时注意删除mysql相关依赖**
+
+2. 配置文件：
+```
+zipkin.storage.type=elasticsearch
+zipkin.storage.elasticsearch.hosts=localhost:9200
+zipkin.storage.elasticsearch.cluster=elasticsearch
+zipkin.storage.elasticsearch.index=zipkin
+zipkin.storage.elasticsearch.index-shards=5
+zipkin.storage.elasticsearch.index-replicas=1
+```
 
 
 ###HTrace
@@ -152,8 +177,7 @@ ELK安装：此处略过
 源码： https://github.com/openzipkin/zipkin/wiki  
 官网文档： http://zipkin.io/  
 背景和设计：
-http://cloud.spring.io/spring-cloud-static/Dalston.SR4/single/spring-cloud.html#_spring_cloud_sleuth  
-
+http://cloud.spring.io/spring-cloud-static/Dalston.SR4/single/spring-cloud.html#_spring_cloud_sleuth
 
 
 
