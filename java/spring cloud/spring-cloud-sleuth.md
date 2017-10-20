@@ -74,8 +74,74 @@ spring.zipkin.locator.discovery.enabled=true //是否显示ip
 
 
 ###Kafka存储和异步发送
+####服务端配置
+1. pom 依赖添加  
+
+```
+<!-- Zipkin server 相关依赖 -->
+        <dependency>
+            <groupId>io.zipkin.java</groupId>
+            <artifactId>zipkin-server</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-stream-kafka</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-sleuth-zipkin-stream</artifactId>
+        </dependency>
+```
+
+2. 配置添加
+
+```
+spring.cloud.stream.kafka.binder.brokers=localhost:9092
+spring.could.stream.kafka.binder.zkNodes=localhost:2181
+```
+
+3. nnotation
+   由//@EnableZipkinServer 改为 @EnableZipkinStreamServer
+
+####客户的配置
+1. POM 添加
+```
+<!-- zipkin 追踪服务 -->
+   <!-- <dependency>
+        <groupId>org.springframework.cloud</groupId>
+        <artifactId>spring-cloud-starter-zipkin</artifactId>
+    </dependency> -->
+
+
+    <dependency>
+        <groupId>org.springframework.cloud</groupId>
+        <artifactId>spring-cloud-starter-stream-kafka</artifactId>
+    </dependency>
+
+    <dependency>
+        <groupId>org.springframework.cloud</groupId>
+        <artifactId>spring-cloud-sleuth-zipkin-stream</artifactId>
+    </dependency>
+```
+
+2. 配置添加
+```
+spring.zipkin.service.name=hello2
+#spring.zipkin.base-url=http://localhost:9411
+spring.sleuth.sampler.percentage=0.8
+spring.zipkin.locator.discovery.enabled=true
+
+spring.cloud.stream.kafka.binder.brokers=localhost:9092
+#172.23.75.35:
+#spring.could.stream.kafka.binder.zkNodes=172.23.75.47:2181,172.23.75.48:2181,172.23.75.49:2181
+spring.could.stream.kafka.binder.zkNodes=localhost:2181
+```
 
 ###ELK
+ELK安装：此处略过
+
 
 
 ###HTrace
@@ -95,7 +161,5 @@ http://cloud.spring.io/spring-cloud-static/Dalston.SR4/single/spring-cloud.html#
 code tracing: 需要抽取有用信息
 debuging exception:
 performance and profiling:
-
-
 做关键点的trace;
 
