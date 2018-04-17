@@ -1,5 +1,6 @@
 #Kafka
 kafka 文档非常详细，很值得深读细度多读。先预读一遍，记下笔记。
+https://www.cnblogs.com/cyfonly/p/5954614.html
 #基本概念
 kafka 集群保存了所有的published records，无论该记录是否被消费。记录被清除由配置的 retention period 决定。  
 
@@ -24,3 +25,18 @@ kafka 集群保存了所有的published records，无论该记录是否被消费
 * Partition：
 	* 每个 partition 可以配置 repicate 的数目来自持容错。
 	* kafka 仅保证每个 partition 内的 record 的有序性，不保证 partition 间的有序性。如果你需要全局有序处理，那么你只能有一个 Partition，每个 consumer group 只有一个 consumer instance。
+	
+* ISR (in-sync replica)
+
+
+#使用 client API
+spring-integration-kafka 已被spring-kafka取代
+https://github.com/spring-projects/spring-integration-kafka 过期了
+https://github.com/spring-projects/spring-kafka
+https://stackoverflow.com/questions/39866357/spring-integration-kafka-vs-spring-kafka
+https://stackoverflow.com/questions/47312542/spring-kafka-vs-spring-cloud-stream-kafka
+
+
+	
+	
+	

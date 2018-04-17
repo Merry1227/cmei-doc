@@ -50,7 +50,17 @@ https://shiro.apache.org/terminology.html
 ### shiro-web
 #### shiro-web
 #### spring-web
+Filter Order决定
+http://jinnianshilongnian.iteye.com/blog/2025656
+
 #### spring-web与spring web的集成和区别
+http://blog.csdn.net/liangxw1/article/details/51095484
+spring filter 顺序：
+
+
+
+
+
 
 ### shiro-tools
 

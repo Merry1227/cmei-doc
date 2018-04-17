@@ -15,6 +15,14 @@ If you didn't expect to have empty partitions, it may be worth investigating why
 java.io.InvalidClassException: org.apache.spark.rdd.MapPartitionsRDD; local class incompatible: stream classdesc serialVersionUID = -1059539896677275380, local class serialVersionUID = 6732270565076291202
 
 6. Yarn Support Exception on Driver:add dependencies
+    <dependency>
+        <groupId>org.apache.spark</groupId>
+        <artifactId>spark-yarn_${scala.binary.version}</artifactId>
+        <version>${spark.version}</version>
+    </dependency>
+
+8. Caused by: java.lang.ClassNotFoundException: org.apache.hadoop.yarn.client.ClientRMProxy
+
 
 7. Yarn Application started:
 Exception in thread "main" java.lang.NoClassDefFoundError: org/apache/spark/Logging
@@ -46,6 +54,18 @@ spark.yarn.jar= (版本问题）
 com.esotericsoftware.kryo.KryoException: Encountered unregistered class ID: 13994
 	at com.esotericsoftware.kryo.util.DefaultClassResolver.readClass(DefaultCla
 streaming做了 checkpoint，application 代码发生了变化。需要删除 checkpoint 文件。
+
+15. kerberos
+问题背景：使用客户端以yarn-cluster模式提交spark任务失败
+问题原因：./spark-submit --class yourclassname --master yarn-cluster /yourdependencyjars 任务以yarn-cluster模式提交任务，driver端会在集群中启用，由于加载的是客户端的spark.driver.extraJavaOptions,在集群节点上对应路径下找不到对应的kdc.conf文件，无法获取kerberos认证所需信息，导致am启动失败。在am日志中打印如下错误信息：
+Exception in thread "main" java.lang.ExceptionInInitializerError
+Caused by: org.apache.spark.SparkException: Unable to load YARN support
+Caused by: java.lang.IllegalArgumentException: Can't get Kerberos realm
+Caused by: java.lang.reflect.InvocationTargetException
+Caused by: KrbException: Cannot locate default realm
+Caused by: KrbException: Generic error (description in e-text) (60) - Unable to locate Kerberos realm
+解决方案：.在客户端提交任务时，在命令行中配置自定义的spark.driver.extraJavaOptions参数 这样任务运行时就不会自动加载客户端路径下的spark-defaults.conf中的spark.driver.extraJavaOptions 
+./spark-submit –class yourclassname --master yarn-cluster --conf spark.driver.extraJavaOptions="-Dlog4j.configuration=/opt/huawei/Bigdata/FusionInsight-Spark-1.3.0/spark/conf/log4j.properties.template -Djetty.version=x.y.z -Dzookeeper.server.principal=zookeeper/hadoop.hadoop.com -Djava.security.krb5.conf=/opt/huawei/Bigdata/FusionInsight-Spark-1.3.0/kdc.conf -Djava.security.auth.login.config=/opt/huawei/Bigdata/FusionInsight-Spark-1.3.0/jaas.conf" ../yourdependencyjars
 
 
 

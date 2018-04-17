@@ -10,3 +10,17 @@ Don't fear the filesystem
 通常大家都会认为“disks are slow”，使得大家怀疑persistent structure是否能够提供可比的性能。实际上，disks 可能比人们想象中的快，也可能比人们想象中慢，实际上，它取决于你的使用方式，合适的 disk structure的设计经常能和 network 一样快。
 
 对于disk的性能而言：
+
+#Producer
+##Load Balancing
+##Asynchronous send
+
+
+#Consumer
+##Push VS PULL
+##Consumer Position
+##Offline Data Load
+
+#Replication
+#Log Compaction
+

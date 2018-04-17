@@ -127,3 +127,6 @@ log4j.appender.rollingFile1.layout.ConversionPattern=%d{yy/MM/dd HH:mm:ss} %p %c
 ##Filter
 设置各种过滤策略
 <http://logback.qos.ch/manual/filters.html>
+
+##MDC
+https://logback.qos.ch/manual/mdc.html
