@@ -11,3 +11,7 @@
 
 #Netty 使用
 http://blog.csdn.net/dc_726/article/details/48978891
+
+
+#Netty 源码参考
+https://segmentfault.com/a/1190000007282628

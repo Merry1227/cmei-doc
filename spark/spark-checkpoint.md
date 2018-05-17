@@ -48,7 +48,7 @@ Write Ahead Log+ reliable receivers（收到数据并且 replicate 之后向 sou
 Spark 在生产环境下经常会面临transformation的RDD非常多（例如一个Job中包含1万个RDD）或者具体transformation的RDD本身计算特别复杂或者耗时（例如计算时长超过1个小时），这个时候就要考虑对计算结果数据的持久化。如果采用persist把数据放在内存中，虽然是快速的，但是也是最不可靠的；如果把数据放在磁盘上，也不是完全可靠的！例如磁盘会损坏，系统管理员可能清空磁盘。持久化的方向可以是 persistent 或者 checkpoint。 当两者目的又有所不同。
 
 1. cache/persistent 可以说一方面是为了提速，另一方面是为了当某一重要步骤过长，后面的依赖出错（可能是逻辑错误）情况下，可以无需从头算起。
-2. checkpoint：则更多的是为了高可用。其核心另的还是 hdfs 的 replicaton.其情形是集群总某个点的硬件设备坏掉，例如 persistent 中某个盘坏了，整个应用仍然是可用的。Checkpoint的产生就是为了相对而言更加可靠的持久化数据，在Checkpoint的时候可以指定把数据放在本地，并且是多副本的方式，但是在生产环境下是放在HDFS上，这就天然的借助了HDFS高容错、高可靠的特征来完成了最大化的可靠的持久化数据的方式；
+2. checkpoint：则更多的是为了高可用。其核心另的还是 hdfs 的 replication.其情形是集群总某个点的硬件设备坏掉，例如 persistent 中某个盘坏了，整个应用仍然是可用的。Checkpoint的产生就是为了相对而言更加可靠的持久化数据，在Checkpoint的时候可以指定把数据放在本地，并且是多副本的方式，但是在生产环境下是放在HDFS上，这就天然的借助了HDFS高容错、高可靠的特征来完成了最大化的可靠的持久化数据的方式；
 
 3. Checkpoint是为了最大程度保证绝对可靠的复用RDD计算数据的Spark高级功能，通过checkpoint我们通常把数据持久化到HDFS来保证数据最大程度的安全性；
 
