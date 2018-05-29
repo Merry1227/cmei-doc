@@ -35,3 +35,8 @@ https://blog.csdn.net/vincent2610/article/details/52708863?locationNum=14
 
 * TensorFlow安装：
 分布式：https://blog.csdn.net/CodeMaster_/article/details/76223835
+
+
+# 深度学习问题
+* 维度灾难(Curse of dimensionality)
+* 梯度下降加上代价函数的时候， 样本空间太大(几亿)时候，计算代价太大 （抽样成几百）
