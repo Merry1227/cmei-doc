@@ -7,12 +7,18 @@ https://www.slideshare.net/tw_dsconf/ss-62245351?qid=108adce3-2c3d-4758-a830-95d
 * https://blog.csdn.net/vincent2610/article/details/52708863?locationNum=14
 
 * 中文tensorflow: http://www.tensorfly.cn/tfdoc/tutorials/overview.html
+  英文：https://www.tensorflow.org
 
-TensorFlow里面的tensor指张量，其实可以理解为一种数据的描述和表示方法。
+TensorFlow里面的tensor指张量，其实可以理解为一种数据的描述和表示方法。 而flow则表示数据tensor在计算图中不断流动
    * tensorflow: 后端是C++, python是客户端， session是客户端与后端的连接，tensorflow原理类似跟其他分布式计算原来类似，
    先客户端定制计算图（即定义你要做什么), 然后session连接，最后run触发计算过程。
    除此之外，还可以根据InteractiveSession, 来进行交互，在允许图的时候，插入一些计算图。
    * tensor： 张量 TODO 了解张量的各种表示法，
+   
+   形象说明见： https://www.tensorflow.org/images/tensors_flowing.gif
+   
+   * 阶：http://www.tensorfly.cn/tfdoc/resources/dims_types.html
+   
 ```
    在同构的意义下，第零阶张量（r = 0） 为标量（Scalar），
    第一阶张量 （r = 1） 为向量 （Vector）， 第二阶张量 （r = 2） 则成为矩阵 （Matrix）。
@@ -39,4 +45,21 @@ https://blog.csdn.net/vincent2610/article/details/52708863?locationNum=14
 
 # 深度学习问题
 * 维度灾难(Curse of dimensionality)
-* 梯度下降加上代价函数的时候， 样本空间太大(几亿)时候，计算代价太大 （抽样成几百）
+* 梯度下降加上代价函数的时候， 样本空间太大(几亿)时候，计算代价太大（抽样成几百）
+
+
+## 学习笔记
+* 为了创建这个模型，我们需要创建大量的权重和偏置项。**这个模型中的权重在初始化时应该加入少量的噪声来打破对称性以及避免0梯度**。
+由于我们使用的是ReLU神经元，因此比较好的做法是**用一个较小的正数来初始化偏置项，以避免神经元节点输出恒为0的问题**（dead neurons）。
+
+# tensorflow API
+## tensorflow: name_scope和variable_scope
+* 主要目的是variable sharing: 减少需要训练的参数的个数，多机多卡并行化训练
+  主要有两种方法实现： 
+  - 直接在各个ops，function之间传递variable reference. 
+  - 把variable 封装在variable_scope/name_scope中
+* 避免变量名和操作名重复， name_scope给operation分类，使用variable_scope来区分variable
+https://blog.csdn.net/u012436149/article/details/53081454
+https://blog.csdn.net/dawnranger/article/details/78185634  
+
+

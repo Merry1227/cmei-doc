@@ -93,6 +93,10 @@ spring filter 顺序：
    可能服务器端session过期，先调用currentUser.logout();再重新登录currentUser.login()
    
 4. AuthenticationException: 其他的AuthenticationException, 如果是数据不一致引起，重新登录
+
+5. 后端改动，前端session ticket不变，需要清空后端缓存
+org.apache.shiro.authc.AuthenticationException: Authentication failed for token submission.  Possible unexpected error? (Typical or expected login exceptions should extend from AuthenticationException).
+
    
    
    
