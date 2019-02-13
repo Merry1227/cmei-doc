@@ -20,7 +20,8 @@ create table if not exists dim_calendar
   year_week         String COMMENT '年-周',
   day_of_week       String COMMENT '当周第几天',
   is_weekend        String COMMENT '是否是周末',
-  is_holiday        String COMMENT  '是否是节假日'
+  is_holiday        String COMMENT  '是否是节假日',
+  fiscal_year       String COMMENT  '属于财年'
 )
 COMMENT '时间维度'
 PARTITIONED BY (calendar_year String)
